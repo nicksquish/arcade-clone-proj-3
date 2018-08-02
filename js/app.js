@@ -30,8 +30,8 @@ const Player = function(x, y, speed) {
 
 Player.prototype.update = function() {
     // sets boundaries for player character movement
-    if (this.y > 380) {
-        this.y = 380;
+    if (this.y > 375) {
+        this.y = 375;
     }
     if (this.x > 400) {
         this.x = 400;
@@ -42,7 +42,7 @@ Player.prototype.update = function() {
     // resets player character to start upon reaching goal
     if (this.y < 0) {
         this.x = 200;
-        this.y = 400;
+        this.y = 375;
     }
 };
 // draws player character on screen
@@ -50,13 +50,31 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Player.prototype.handleInput = function(keyPress) {
+    switch (keyPress) {
+        case 'left':
+            this.x -= this.speed + 50;
+            break;
+        case 'up':
+            this.y -= this.speed + 30;
+            break;
+        case 'right':
+            this.x += this.speed + 50;
+            break;
+        case 'down':
+            this.y += this.speed + 30;
+            break;
+    };
+};
 const allEnemies = [];
-const bug;
+let bug;
 const bugStart = [60, 140, 220];
-const player = new Player(200, 400, 100);
+const player = new Player(200, 375, 50);
 
-
-
+bugStart.forEach((posY) => {
+    bug = new Enemy(0, posY, 100 + Math.floor(Math.random() * 600));
+    allEnemies.push(bug);
+});
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
