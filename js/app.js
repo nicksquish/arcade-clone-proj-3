@@ -6,13 +6,19 @@ var Enemy = function(x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+//updates enemy position and speed after scrolling across screen
 Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
     if (this.x>550) {
         this.x = -100;
         this.speed = 250 + Math.floor(Math.random() * 300);
+    };
+    if (player.x <= this.x + 40 &&
+        player.x + 40 >= this.x &&
+        player.y <= this.y + 40 &&
+        player.y + 40 >= this.y) {
+        player.x = 200;
+        player.y = 375;
     };
 };
 
@@ -21,9 +27,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+//player character constructor
 const Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
@@ -52,7 +56,7 @@ Player.prototype.update = function() {
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
+// allows player movement using arrow keys
 Player.prototype.handleInput = function(keyPress) {
     switch (keyPress) {
         case 'left':
@@ -69,7 +73,7 @@ Player.prototype.handleInput = function(keyPress) {
             break;
     };
 };
-
+//variable declarations for characters
 const allEnemies = [];
 let bug;
 const bugStart = [60, 140, 220];
