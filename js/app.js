@@ -9,8 +9,11 @@ var Enemy = function(x, y, speed) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-
-
+    this.x += this.speed * dt;
+    if (this.x>550) {
+        this.x = -100;
+        this.speed = 250 + Math.floor(Math.random() * 300);
+    };
 };
 
 // Draw the enemy on the screen, required method for game
@@ -66,13 +69,14 @@ Player.prototype.handleInput = function(keyPress) {
             break;
     };
 };
+
 const allEnemies = [];
 let bug;
 const bugStart = [60, 140, 220];
 const player = new Player(200, 375, 50);
 
 bugStart.forEach((posY) => {
-    bug = new Enemy(0, posY, 100 + Math.floor(Math.random() * 600));
+    bug = new Enemy(0, posY, 200 + Math.floor(Math.random() * 600));
     allEnemies.push(bug);
 });
 
