@@ -29,6 +29,27 @@ const Player = function(x, y, speed) {
     this.sprite = 'images/char-boy.png';
 };
 
+Player.prototype.update = function() {
+    // sets boundaries for player character movement
+    if (this.y > 380) {
+        this.y = 380;
+    }
+    if (this.x > 400) {
+        this.x = 400;
+    }
+    if (this.x < 0) {
+        this.x = 0;
+    }
+    // resets player character to start upon reaching goal
+    if (this.y < 0) {
+        this.x = 200;
+        this.y = 380;
+    }
+};
+// draws player character on screen
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
