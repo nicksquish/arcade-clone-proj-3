@@ -13,10 +13,12 @@ Enemy.prototype.update = function(dt) {
         this.x = -100;
         this.speed = 250 + Math.floor(Math.random() * 300);
     };
+    //check to see if player and enemies x and y positions (near) match
     if (player.x <= this.x + 40 &&
         player.x + 40 >= this.x &&
         player.y <= this.y + 40 &&
         player.y + 40 >= this.y) {
+        //reset player position if true
         player.x = 200;
         player.y = 375;
     };
@@ -78,7 +80,7 @@ const allEnemies = [];
 let bug;
 const bugStart = [60, 140, 220];
 const player = new Player(200, 375, 50);
-
+//starting position and speed for each enemy bug
 bugStart.forEach((posY) => {
     bug = new Enemy(0, posY, 200 + Math.floor(Math.random() * 600));
     allEnemies.push(bug);
