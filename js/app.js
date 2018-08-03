@@ -19,8 +19,7 @@ Enemy.prototype.update = function(dt) {
         player.y <= this.y + 40 &&
         player.y + 40 >= this.y) {
         //reset player position if true
-        player.x = 200;
-        player.y = 375;
+        player.reset();
     };
 };
 
@@ -37,6 +36,11 @@ const Player = function(x, y, speed) {
     this.sprite = 'images/char-boy.png';
 };
 
+Player.prototype.reset = function() {
+    player.x = 200;
+    player.y = 375;
+};
+
 Player.prototype.update = function() {
     // sets boundaries for player character movement
     if (this.y > 375) {
@@ -50,8 +54,7 @@ Player.prototype.update = function() {
     }
     // resets player character to start upon reaching goal
     if (this.y < 0) {
-        this.x = 200;
-        this.y = 375;
+        player.reset();
     }
 };
 // draws player character on screen
